@@ -107,6 +107,7 @@
 
 <center> 
 
+![Альтернативный текст](https://github.com/Pompon-Den/Suff-Tree-Algorithm-Ykkonen\master\Image\First.jpg "суффиксное дерево")
 ![Альтернативный текст](Image\First.jpg "суффиксное дерево")
 </center> 
 
