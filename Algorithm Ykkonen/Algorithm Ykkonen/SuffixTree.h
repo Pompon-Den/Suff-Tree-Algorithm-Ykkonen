@@ -52,7 +52,7 @@ public:
     }
     void CountIndex(Node* node, vector<int>& vec); // сбор индексов листьев в вектор, содержащихся в поддереве node
     Node* root = new Node(nullptr, -1, new int(-1)); // корень
-
+    void SearhP(string podstroka, string s); //поиск подстроки в дереве
 private:
     void ExtendSuffixTree(int pos);   // расширение дерева
     void DeleteSuffixTree(Node* node) // удаление дерева

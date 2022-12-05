@@ -133,6 +133,33 @@ void SuffixTree::CountIndex(Node* node, vector<int>& vec)
 
 }
 
+void  SuffixTree::SearhP(string podstroka, string s) {
+    int indexP = 0;
+    int podsroka_length = podstroka.length();
+    Node* activeV = root;
+    while (podsroka_length > 0) {
+        auto f = activeV->children.find(s[indexP]);
+        if (f == activeV->children.end()) {
+            cout << "NO";
+            return;
+        }
+        else {
+            Node* nextV = f->second;
+            int ff = EdgeLength(nextV); // нашли длину дуги(ребра)
+            if (ff >= podsroka_length) {
+                cout << "YES";
+                return;
+            }
+            else {
+                podsroka_length -= ff;
+                activeV = nextV;
+                indexP += ff;
+                continue;
+            }
+
+        }
+    }
+}
 
 int main()
 {
@@ -143,12 +170,16 @@ int main()
     cin >> s;
     SuffixTree *NewSuffTree = new SuffixTree(s);
     NewSuffTree->CountIndex(NewSuffTree->root, SuffTree);
-    for (int i = 0; i < SuffTree.size(); i++) {
+   /* for (int i = 0; i < SuffTree.size(); i++) {
         for (int j = 0; j < SuffTree[i]; j++) {
             cout << s[j];
         }
-        cout << endl;
-    }
-    
+        cout << endl;  
+    } */
+    cout << "write podstoka" << endl;
+    string p;
+    cin >> p;
+    NewSuffTree->SearhP(p, s);
+
     delete NewSuffTree;
 }
