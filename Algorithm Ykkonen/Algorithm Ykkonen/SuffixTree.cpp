@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 SuffixTree::SuffixTree(string& str) : text(str)
 {
     text += TERMINATION_SYMBOL;
@@ -159,27 +158,5 @@ void  SuffixTree::SearhP(string podstroka, string s) {
 
         }
     }
-}
-
-int main()
-{
-    string s;
-    vector <int> SuffTree;
-    cout << "Hello World!" << endl;
-    cout << "write sting:"<< endl;
-    cin >> s;
-    SuffixTree *NewSuffTree = new SuffixTree(s);
-    NewSuffTree->CountIndex(NewSuffTree->root, SuffTree);
-   /* for (int i = 0; i < SuffTree.size(); i++) {
-        for (int j = 0; j < SuffTree[i]; j++) {
-            cout << s[j];
-        }
-        cout << endl;  
-    } */
-    cout << "write podstoka" << endl;
-    string p;
-    cin >> p;
-    NewSuffTree->SearhP(p, s);
-
-    delete NewSuffTree;
-}
+} 
+ 
