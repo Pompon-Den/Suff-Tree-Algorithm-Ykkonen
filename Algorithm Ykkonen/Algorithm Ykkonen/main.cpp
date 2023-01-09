@@ -4,8 +4,6 @@
 #include <vector>
 #include <algorithm>
 #include <map>
-#include <SuffixTree.cpp>
-
 
 int main()
 {
