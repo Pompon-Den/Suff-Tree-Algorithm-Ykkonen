@@ -114,7 +114,7 @@ void SuffixTree::CountIndex(Node* node, vector<int>& vec)
         vec.push_back(node->suffix_index);
 }
 
-void SuffixTree::SubstringOutput() {
+void SuffixTree::SuffixOutput() {
      vector <int> VecSuffTree;
      CountIndex(root, VecSuffTree);
     for (int i = 0; i < VecSuffTree.size(); i++) {
@@ -126,7 +126,7 @@ void SuffixTree::SubstringOutput() {
     }
 }
 
-bool SuffixTree::FindP(string Pstr) {
+bool SuffixTree::FindSub(string Pstr) {
     Node* current_node = root;
     string finded_str = "";
     int depth_edge = 0;

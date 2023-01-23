@@ -362,7 +362,7 @@
  -   __`int* end`__ - номер последнего символа вершины в исходной строке .
  -   __`int suffix_index`__ - номер суффикса.
 -------------------------------------------------
-### Дерево хранит  себе:
+### Дерево хранит в себе:
 - __`Node* root`__ - корень
 - __`Node* lastCreatedInternalNode`__ - последняя созданная внутренняя вершина.
 - __`Node* activeNode`__ - вершина с которой  начнется расширение на следующей фазе.
@@ -437,7 +437,7 @@ void SuffixTree::ExtendSuffixTree(int phase)
     lastCreatedInternalNode = nullptr;
 
     // глобальный end для листьев
-    // инкремент leafEnd воплощает правило 1,  наращивание листьев
+    // инкремент leafEnd воплощает наращивание листьев
     leafEnd++;
 
     // сколько суффиксов осталось создать
@@ -481,13 +481,13 @@ void SuffixTree::ExtendSuffixTree(int phase)
                 continue; // таким образом мы будем спускаться, покуда не станет activeLength < edge_length
             }
 
-            // правило 3: если текущий символ есть на дуге,
+            //  если текущий символ есть на дуге,
             // т.е. суффикс уже есть в дереве, то просто увеличим activeLength
             // как бы "шагнем вперед" по дуге
             if (text[next->start + activeLength] == text[phase])
             {
                 // если lastCreatedInternalNode != null
-                // это означает, что 2-е правило было применено ранее (создание новой внутренней  вершины)
+                // это означает, что  ранее было создание новой внутренней  вершины
                 // установим суффлинку в activeNode
                 if (lastCreatedInternalNode != nullptr && activeNode != root)
                     lastCreatedInternalNode->suffix_link = activeNode;
@@ -514,7 +514,7 @@ void SuffixTree::ExtendSuffixTree(int phase)
 
         remainingSuffixCount--;
 
-        // если activeNode == root, тогда согласно правилу 2, мы декементируем activeLength и инкрементируем activeEdge
+        // если activeNode == root, тогда , мы декементируем activeLength и инкрементируем activeEdge
         // это, можно сказать, альтернатива суфф. ссылке в случае, когда activeNode == root
         if (activeNode == root && activeLength > 0)
         {
@@ -546,6 +546,16 @@ void SuffixTree::ExtendSuffixTree(int phase)
 - [Статья на stackoverflow](https://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english/9513423#9513423)
 - [Подробное объяснение алгоритма](https://www.youtube.com/watch?v=aPRqocoBsFQ)
 - [Основополагающая лекция](https://compscicenter.ru/courses/algorithms-2/nsk/2018-spring/classes/3764/)
+- [Статья на Википедии](https://translated.turbopages.org/proxy_u/en-ru.ru.12634738-63ce5881-47f42b2f-74722d776562/https/en.wikipedia.org/wiki/Ukkonen's_algorithm)
+- [Подробное обьяснение на английском](https://translated.turbopages.org/proxy_u/en-ru.ru.12634738-63ce5881-47f42b2f-74722d776562/https/stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english/9513423#9513423)
+- [Быстрый поиск строк с помощью деревьев суффиксов](https://translated.turbopages.org/proxy_u/en-ru.ru.05180f7a-63ce592f-6315a863-74722d776562/https/marknelson.us/posts/1996/08/01/suffix-trees.html)
+- [Статья с обьяснением реализации на С](https://translated.turbopages.org/proxy_u/en-ru.ru.05180f7a-63ce592f-6315a863-74722d776562/programmerspatch.blogspot.com/2013/02/ukkonens-suffix-tree-algorithm.html)
+- [Страница Укконена](https://translated.turbopages.org/proxy_u/en-ru.ru.05180f7a-63ce592f-6315a863-74722d776562/https/www.cs.helsinki.fi/u/ukkonen/)
+- [Построение дерева суффиксов Укконена](https://translated.turbopages.org/proxy_u/en-ru.ru.05180f7a-63ce592f-6315a863-74722d776562/https/www.geeksforgeeks.org/ukkonens-suffix-tree-construction-part-1/)
+- [Построение дерева суффиксов Укконена часть 6](https://translated.turbopages.org/proxy_u/en-ru.ru.05180f7a-63ce592f-6315a863-74722d776562/https/www.geeksforgeeks.org/ukkonens-suffix-tree-construction-part-6/)
+- [Приложение дерева суффиксов 1 – Проверка подстроки](https://translated.turbopages.org/proxy_u/en-ru.ru.05180f7a-63ce592f-6315a863-74722d776562/https/www.geeksforgeeks.org/suffix-tree-application-1-substring-check/)
+
+
 
 
 

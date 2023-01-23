@@ -58,8 +58,8 @@ public:
     }
     void CountIndex(Node* node, vector<int>& vec); 
     int EdgeLength(Node* node);                    // длина дуги
-    bool FindP(string Pstr);                       // поиск подстроки в дереве
-    void SubstringOutput();                        // вывод всех суффиксов
+    bool FindSub(string Pstr);                       // поиск подстроки в дереве
+    void SuffixOutput();                        // вывод всех суффиксов
 
 
     Node* root = new Node(nullptr, -1, new int(-1));
