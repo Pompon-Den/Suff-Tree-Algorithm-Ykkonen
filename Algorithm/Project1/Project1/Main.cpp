@@ -64,9 +64,16 @@ void TestSystem(string nameFile) {
 
     for (int i = 0; i < IntCountString; i++) {
         getline(input, test.TestString);
+        if (test.TestString.empty()) {
+            output << "Test" << i + 1 << ": Error Empty string" << endl;
+            continue;
+        }
         getline(input, test.TestSubstring);
+        if (test.TestSubstring.empty()) {
+            output << "Test" << i + 1 << ": Error Empty Substring" << endl;
+            continue;
+        }
         bool check1, check2;
-        output << "Test" << i + 1 << ": ";
         auto beginFind = chrono::steady_clock::now();
         if (test.TestString.find(test.TestSubstring) != string::npos) {
             check1 = true;
@@ -90,7 +97,7 @@ void TestSystem(string nameFile) {
         else {
             check2 = false;
         }
-        //output << test.TestString << " " << test.TestSubstring << " ";
+        output << "Test" << i + 1 << ": ";
         output << "Time Build " << timeWorkSuffixTreeBuild.count() << "ns " << timeWorkFindSub.count() << "ns ";
         output << check1 << " " << check2 << " ";
         if (check1 == check2) {

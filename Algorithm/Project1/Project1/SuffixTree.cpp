@@ -28,11 +28,7 @@ void SuffixTree::ExtendSuffixTree(int phase)
 {
     // установить lastCreatedInternalNode = null перед началом каждой фазы
     lastCreatedInternalNode = nullptr;
-
-    // глобальный end для листьев
     leafEnd++;
-
-    // сколько суффиксов осталось создать
     remainingSuffixCount++;
 
     while (remainingSuffixCount > 0)
@@ -41,10 +37,7 @@ void SuffixTree::ExtendSuffixTree(int phase)
         if (activeLength == 0)
             activeEdge = phase; // индекс текущего символа в тексте определяет дугу, по которой будем двигаться
 
-        // ищем текущий символ в начале исходящих из activeNode дуг
         auto find = activeNode->children.find(text[activeEdge]);
-
-        // не нашли
         if (find == activeNode->children.end())
         {
             // добавим новую листовую дугу, исходящую из activeNode, начинающуся текущим символом
@@ -72,24 +65,24 @@ void SuffixTree::ExtendSuffixTree(int phase)
                 continue;
             }
 
-            // правило 3: если текущий символ есть на дуге,
+            // если текущий символ есть на дуге,
             // т.е. суффикс уже есть в дереве, то просто увеличим activeLength
             if (text[next->start + activeLength] == text[phase])
             {
                 // если lastCreatedInternalNode != null
-                // это означает, что 2-е правило было применено ранее (создание новой вн. вершины)
+                // это означает, что ранее было создание новой  вершины
                 // установим суффлинку в activeNode
                 if (lastCreatedInternalNode != nullptr && activeNode != root)
                     lastCreatedInternalNode->suffix_link = activeNode;
                 activeLength++;
-                break; // выйдем из цикла while
+                break; 
             }
 
             //если текущего символа нет на дуге
             // создадим новую внутреннюю вершинку
             Node* split = new Node(root, next->start, new int(next->start + activeLength - 1));
             activeNode->children[text[activeEdge]] = split;            // подвесим к activeNode новую вершинку
-            next->start += activeLength;            // у "следующей" вершинки изменим начало
+            next->start += activeLength;                               // у "следующей" вершинs изменим начало
             split->children.insert(make_pair(text[phase], new Node(root, phase, &leafEnd, phase - remainingSuffixCount + 1))); // подвесим новую листовую вершинку
             split->children.insert(make_pair(text[next->start], next));
             if (lastCreatedInternalNode != nullptr)

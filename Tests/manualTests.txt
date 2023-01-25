@@ -1,4 +1,6 @@
-19
+20
+abacaba
+
 abacaba
 x
 abacaba
@@ -35,9 +37,5 @@ ukkonen not ykkonen
  
 test16idontthink
 []]\
-abacaba
 
-
-
-
-
+a
