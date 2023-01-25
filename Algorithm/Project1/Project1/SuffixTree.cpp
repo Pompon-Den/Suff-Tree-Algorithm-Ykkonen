@@ -2,8 +2,14 @@
 
 SuffixTree::SuffixTree(string& str) : text(str)
 {
-    text += TERMINATION_SYMBOL;
-    BuildSuffixTree();
+    if (text.empty()) {
+        cout << "Empty string";
+        exit(0);
+    }
+    else {
+        text += TERMINATION_SYMBOL;
+        BuildSuffixTree();
+    }
 }
 
 void SuffixTree::BuildSuffixTree()
@@ -127,6 +133,10 @@ void SuffixTree::SuffixOutput() {
 }
 
 bool SuffixTree::FindSub(string Pstr) {
+    if (Pstr.empty()) {
+        cout << "Empty Substring";
+        exit(0);
+    }
     Node* current_node = root;
     string finded_str = "";
     int depth_edge = 0;

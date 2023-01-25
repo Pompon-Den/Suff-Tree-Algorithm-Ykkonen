@@ -1,3 +1,20 @@
+/*
+Этот заголовочный файл содержит библтотеку С++ с реализацией алгоритма Укконена
+
+    Построение суффиксного дерево по строке:
+        SuffixTree* название = new SuffixTree(название_строки);
+
+    Деструктор - освобождает память
+        delete название ;
+
+    Поиск подстроки в суффиксном дереве, возвращает булевое значение:
+        название->FindSub(название_строки);
+
+    Вывод всех суффиксов строки в дереве в консоль:
+        название->SuffixOutput();
+
+*/
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,7 +42,7 @@ public:
         suffix_index(ind)
     {
     }
-
+private:
     map<char, Node*> children; 
     Node* suffix_link;          
     int start;                  
@@ -42,21 +59,23 @@ public:
     {
         DeleteSuffixTree(root);
     }
+ 
+    bool FindSub(string Pstr);
+    void SuffixOutput();
 
-
-    void ExtendSuffixTree(int pos);   
+private:
     void DeleteSuffixTree(Node* node) 
     {
         for (auto it : node->children)
             DeleteSuffixTree(it.second);
-        if (node->suffix_index == -1)
+        if (node->suffix_index == -1) 
             delete node->end;
         delete node;
-    }
-    void CountIndex(Node* node, vector<int>& vec); 
-    int EdgeLength(Node* node);                    
-    bool FindSub(string Pstr);                       
-    void SuffixOutput();                        
+    }              
+
+    void ExtendSuffixTree(int pos);
+    void CountIndex(Node* node, vector<int>& vec);
+    int EdgeLength(Node* node);
 
 
     Node* root = new Node(nullptr, -1, new int(-1));

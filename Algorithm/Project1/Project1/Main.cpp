@@ -46,13 +46,13 @@ void RandomGeneralString(string fileName, int countString, int lengthStringMin, 
         cout << "Test generated: OK" << endl;
         fs.close();
 }
-
+ 
 
 /* Функция тестирующая входные данные из файла nameFile с оценкой времени работы построения дерева в файл
 с именемReady + nameFile*/
-void TestSystem(string nameFile) {
-    string fullNameFileInput = "..\\..\\..\\Tests\\" + nameFile;
-    string fullNameFileOutput = "..\\..\\..\\Tests\\Ready" + nameFile ;
+void TestSystem(string nameFile) { 
+    string fullNameFileInput = "..\\..\\..\\Tests\\" + nameFile + ".txt";
+    string fullNameFileOutput = "..\\..\\..\\Tests\\Ready" + nameFile + ".txt";
     fstream input(fullNameFileInput, ios::in);
     fstream output(fullNameFileOutput, ios::out);
     
@@ -79,7 +79,7 @@ void TestSystem(string nameFile) {
         auto beginSuffixTreeBuild = chrono::steady_clock::now();
         SuffixTree* NewSuffTree = new SuffixTree(test.TestString);
         auto endSuffixTreeBuild = chrono::steady_clock::now();
-        auto timeWorkSuffixTreeBuild = std::chrono::duration_cast<std::chrono::nanoseconds>(endFind - beginFind);
+        auto timeWorkSuffixTreeBuild = std::chrono::duration_cast<std::chrono::nanoseconds>( endSuffixTreeBuild - beginSuffixTreeBuild );
         auto beginFindSub = chrono::steady_clock::now();
         bool FindSubstring = NewSuffTree->FindSub(test.TestSubstring);
         auto endFindSub = chrono::steady_clock::now();
@@ -91,7 +91,7 @@ void TestSystem(string nameFile) {
             check2 = false;
         }
         //output << test.TestString << " " << test.TestSubstring << " ";
-        output << "Time Build " << timeWorkSuffixTreeBuild.count() << "ns Time Find " << timeWorkFind.count() << "ns " << timeWorkFindSub.count() << "ns ";
+        output << "Time Build " << timeWorkSuffixTreeBuild.count() << "ns " << timeWorkFindSub.count() << "ns ";
         output << check1 << " " << check2 << " ";
         if (check1 == check2) {
             output << "OK" << endl;
@@ -161,8 +161,9 @@ void GeneralString(string fileName, int countString)
 int main()
 {
     //RandomGeneralString("RandomTest.txt", 100, 1000, 3000);
-    //TestSystem("RandomTest.txt");
-    GeneralString("10", 100);
+    TestSystem("manualTests");
+    //GeneralString("10", 100);
+    //testForChart("10");
 
 }
 
