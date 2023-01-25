@@ -160,9 +160,9 @@ void GeneralString(string fileName, int countString)
 
 int main()
 {
- //RandomGeneralString("RandomTest.txt", 100, 1000, 3000);
- //TestSystem("RandomTest.txt");
-
+    //RandomGeneralString("RandomTest.txt", 100, 1000, 3000);
+    //TestSystem("RandomTest.txt");
+    GeneralString("10", 100);
 
 }
 
