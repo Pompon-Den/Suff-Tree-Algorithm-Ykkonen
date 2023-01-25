@@ -48,7 +48,8 @@ void RandomGeneralString(string fileName, int countString, int lengthStringMin, 
 }
 
 
-
+/* Функция тестирующая входные данные из файла nameFile с оценкой времени работы построения дерева в файл
+с именемReady + nameFile*/
 void TestSystem(string nameFile) {
     string fullNameFileInput = "..\\..\\..\\Tests\\" + nameFile;
     string fullNameFileOutput = "..\\..\\..\\Tests\\Ready" + nameFile ;
@@ -75,17 +76,22 @@ void TestSystem(string nameFile) {
         }
         auto endFind = chrono::steady_clock::now();
         auto timeWorkFind = std::chrono::duration_cast<std::chrono::nanoseconds>(endFind - beginFind);
+        auto beginSuffixTreeBuild = chrono::steady_clock::now();
         SuffixTree* NewSuffTree = new SuffixTree(test.TestString);
+        auto endSuffixTreeBuild = chrono::steady_clock::now();
+        auto timeWorkSuffixTreeBuild = std::chrono::duration_cast<std::chrono::nanoseconds>(endFind - beginFind);
         auto beginFindSub = chrono::steady_clock::now();
-        if (NewSuffTree->FindSub(test.TestSubstring)) {
+        bool FindSubstring = NewSuffTree->FindSub(test.TestSubstring);
+        auto endFindSub = chrono::steady_clock::now();
+        auto timeWorkFindSub = std::chrono::duration_cast<std::chrono::nanoseconds>(endFindSub - beginFindSub);
+        if (FindSubstring) {
             check2 = true;
         }
         else {
             check2 = false;
         }
-        auto endFindSub = chrono::steady_clock::now();
-        auto timeWorkFindSub = std::chrono::duration_cast<std::chrono::nanoseconds>(endFindSub - beginFindSub);
-        output << countString << " " << timeWorkFind.count() << "nc " << timeWorkFindSub.count() << "ns ";
+        //output << test.TestString << " " << test.TestSubstring << " ";
+        output << "Time Build " << timeWorkSuffixTreeBuild.count() << "ns Time Find " << timeWorkFind.count() << "ns " << timeWorkFindSub.count() << "ns ";
         output << check1 << " " << check2 << " ";
         if (check1 == check2) {
             output << "OK" << endl;
@@ -100,43 +106,63 @@ void TestSystem(string nameFile) {
     output.close();
 }
 
+/* Тестирует файл со строками фиксированной длины для дальнейшего использования
+в построение графиков*/
+void testForChart(string nameFile) {
+    string fullNameFileInput = "..\\..\\..\\Tests\\" + nameFile + ".txt";
+    string fullNameFileOutput = "..\\..\\..\\Tests\\Ready" + nameFile + ".txt";
+    fstream input(fullNameFileInput, ios::in);
+    fstream output(fullNameFileOutput, ios::out);
+
+    string countString;
+    Test test;
+    getline(input, countString);
+    int IntCountString = stoi(countString);
+
+
+    for (int i = 0; i < IntCountString; i++) {
+        getline(input, test.TestString);
+
+        auto beginSuffixTreeBuild = chrono::steady_clock::now();
+        SuffixTree* NewSuffTree = new SuffixTree(test.TestString);
+        auto endSuffixTreeBuild = chrono::steady_clock::now();
+        auto timeWorkSuffixTreeBuild = chrono::duration_cast<std::chrono::microseconds>(endSuffixTreeBuild - beginSuffixTreeBuild);
+
+        output << test.TestString.length() << " " << timeWorkSuffixTreeBuild.count() << endl;
+        delete NewSuffTree;
+    }
+    cout << "Open " << fullNameFileOutput;
+    input.close();
+    output.close();
+}
+  
+/* Генерирует файл с countString  не случайных строк длиной полученой из названия файла, например GeneralString("100", 10)
+ сгенирирует файл с 10 строками длины равной 100 символов
+ изпользуется для генерации тестов для составления графиков*/
+void GeneralString(string fileName, int countString)
+{
+    string fullFileNameOutput = "..\\..\\..\\Tests\\" + fileName + ".txt";
+    fstream fs(fullFileNameOutput, ios::out);
+    Test test;
+    int lengthString = stoi(fileName);
+    srand(time(0));
+    fs << countString << endl;
+    for (int j = 0; j < countString; j++) {
+        for (int i = 0; i < lengthString; i++) {
+            test.TestString += getRandomChar();
+        }
+        fs << test.TestString << endl;
+        test.TestString = "";
+    }
+    cout << "Test generated: OK" << endl;
+    fs.close();
+}
+
 int main()
 {
-    //RandomGeneralString("RandomTest.txt", 10, 1000, 1500);
-    TestSystem("RandomTest.txt");
+ //RandomGeneralString("RandomTest.txt", 100, 1000, 3000);
+ //TestSystem("RandomTest.txt");
 
 
-  /*
-    string s, s1;
-    bool check1, check2;
-    cout << "write string" << endl;
-    cin >> s;
-    cout << "write substring" << endl;
-    cin >> s1;
-    if (s.find(s1) != string::npos) {
-        check1 = true;
-    }
-    else {
-        check1 = false;
-    }
-    SuffixTree* NewSuffTree = new SuffixTree(s);
-    if (NewSuffTree->FindP(s1)) {
-        check2 = true;
-     }
-    else {
-        check2 = false;
-    }
-    cout << check1 << " " << check2 << " ";
-    if (check1 == check2) {
-        cout << "OK" << endl;
-    }
-    else {
-        cout << "NO" << endl;
-    }
-
-    //NewSuffTree->SuffixOutput();
-    delete NewSuffTree;
-    
-    */
 }
 

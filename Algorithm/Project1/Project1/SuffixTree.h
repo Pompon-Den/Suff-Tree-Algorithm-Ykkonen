@@ -15,19 +15,16 @@ class Node
 public:
     friend SuffixTree;
 
-    // конструктор ноды без индекса: используется при создании новых внутренних вершин
     Node(Node* link, int start, int* end) : Node(link, start, end, -1)
     {
     }
 
-    // конструктор с индексом: исп-ся при создании листьев
     Node(Node* link, int start, int* end, int ind) : suffix_link(link),
         start(start),
         end(end),
         suffix_index(ind)
     {
     }
-
 
     map<char, Node*> children; 
     Node* suffix_link;          
@@ -40,8 +37,8 @@ class SuffixTree
 {
 public:
     SuffixTree(string& text);             // конструктор по строке
-    void BuildSuffixTree();               // построение дерева
-    ~SuffixTree()                         // деструктор
+    void BuildSuffixTree();               
+    ~SuffixTree()                        
     {
         DeleteSuffixTree(root);
     }
@@ -57,9 +54,9 @@ public:
         delete node;
     }
     void CountIndex(Node* node, vector<int>& vec); 
-    int EdgeLength(Node* node);                    // длина дуги
-    bool FindSub(string Pstr);                       // поиск подстроки в дереве
-    void SuffixOutput();                        // вывод всех суффиксов
+    int EdgeLength(Node* node);                    
+    bool FindSub(string Pstr);                       
+    void SuffixOutput();                        
 
 
     Node* root = new Node(nullptr, -1, new int(-1));

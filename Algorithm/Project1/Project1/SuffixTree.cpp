@@ -144,8 +144,7 @@ bool SuffixTree::FindSub(string Pstr) {
         if (finded_edge == current_node->children.end()) {
             return false;
         }
-        //если нашли - спускаемся
-        int index_Substring = -1;
+        //если нашли - спускаемся       
         while (depth_edge <= EdgeLength(finded_node)) {
             if (finded_str == Pstr) {
                 return true;
@@ -165,6 +164,9 @@ bool SuffixTree::FindSub(string Pstr) {
         total_depth += depth_edge;
         depth_edge = 0;
         finded_edge = current_node->children.find(Pstr[total_depth]);
+        if (finded_edge == current_node->children.end()) {
+            return false;
+        }
         finded_node = finded_edge->second;
     }
 }
