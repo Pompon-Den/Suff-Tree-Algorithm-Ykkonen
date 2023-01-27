@@ -219,6 +219,7 @@ void TE() {
 }
 int main()
 {
+    //RandomGeneralString("RandomString", 1000, 10, 1000);
     TestSystem("manualTests");
 
 }
