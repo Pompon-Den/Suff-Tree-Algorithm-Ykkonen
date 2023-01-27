@@ -8,10 +8,9 @@ SuffixTree::SuffixTree(string& str) : text(str)
 void SuffixTree::BuildSuffixTree()
 {
     activeNode = root;
-    for (size_t i = 0; i < text.length(); i++) {
+    for (size_t i = 0; i <= text.length(); i++) {
         ExtendSuffixTree(i);
     }
-    ExtendSuffixTree(text.length());
 }
 
 int SuffixTree::EdgeLength(Node* node)
