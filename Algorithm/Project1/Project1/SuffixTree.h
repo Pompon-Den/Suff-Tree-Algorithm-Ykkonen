@@ -26,7 +26,6 @@
 #include <algorithm>
 #include <map>
 
-#define TERMINATION_SYMBOL '$' // врн рн я мхл ядекюрэ мсфмн  ме днккюп
 
 using namespace std;
 

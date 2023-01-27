@@ -2,15 +2,16 @@
 
 SuffixTree::SuffixTree(string& str) : text(str)
 {
-        text += TERMINATION_SYMBOL;
         BuildSuffixTree();
 }
 
 void SuffixTree::BuildSuffixTree()
 {
     activeNode = root;
-    for (size_t i = 0; i < text.length(); i++)
+    for (size_t i = 0; i < text.length(); i++) {
         ExtendSuffixTree(i);
+    }
+    ExtendSuffixTree(text.length());
 }
 
 int SuffixTree::EdgeLength(Node* node)
@@ -27,15 +28,13 @@ void SuffixTree::ExtendSuffixTree(int phase)
 
     while (remainingSuffixCount > 0)
     {
-        //тогда ищем текущий символ из корня
-        if (activeLength == 0)
+        if (activeLength == 0)//тогда ищем текущий символ из корня
             activeEdge = phase; // индекс текущего символа в тексте определяет дугу, по которой будем двигаться
 
         auto find = activeNode->children.find(text[activeEdge]);
         if (find == activeNode->children.end())
         {
-            // добавим новую листовую дугу, исходящую из activeNode, начинающуся текущим символом
-            activeNode->children.insert(make_pair(
+                activeNode->children.insert(make_pair(           // добавим новую листовую дугу, исходящую из activeNode, начинающуся текущим символом
                 text[activeEdge],
                 new Node(root, phase, &leafEnd, phase - remainingSuffixCount + 1)));
             //создали новую внутр. вершину, установим на нее суффлинку последней созданной вершины
@@ -47,8 +46,7 @@ void SuffixTree::ExtendSuffixTree(int phase)
         }
         else
         {
-            //если есть дуга из activeNode, начнем по ней спускаться
-            Node* next = find->second;
+            Node* next = find->second;      //если есть дуга из activeNode, начнем по ней спускаться
             int edge_length = EdgeLength(next);
 
             if (activeLength >= edge_length)
@@ -63,17 +61,13 @@ void SuffixTree::ExtendSuffixTree(int phase)
             // т.е. суффикс уже есть в дереве, то просто увеличим activeLength
             if (text[next->start + activeLength] == text[phase])
             {
-                // если lastCreatedInternalNode != null
-                // это означает, что ранее было создание новой  вершины
-                // установим суффлинку в activeNode
-                if (lastCreatedInternalNode != nullptr && activeNode != root)
-                    lastCreatedInternalNode->suffix_link = activeNode;
-                activeLength++;
+                if (lastCreatedInternalNode != nullptr && activeNode != root)    // если lastCreatedInternalNode != null
+                    lastCreatedInternalNode->suffix_link = activeNode;           // это означает, что ранее было создание новой  вершины
+                     activeLength++;                                             // установим суффлинку в activeNode
                 break; 
             }
 
-            //если текущего символа нет на дуге
-            // создадим новую внутреннюю вершинку
+            //если текущего символа нет на дуге создадим новую внутреннюю вершинку
             Node* split = new Node(root, next->start, new int(next->start + activeLength - 1));
             activeNode->children[text[activeEdge]] = split;            // подвесим к activeNode новую вершинку
             next->start += activeLength;                               // у "следующей" вершинs изменим начало
