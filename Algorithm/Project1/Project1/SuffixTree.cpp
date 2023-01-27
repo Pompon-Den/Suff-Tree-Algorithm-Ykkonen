@@ -2,14 +2,8 @@
 
 SuffixTree::SuffixTree(string& str) : text(str)
 {
-    if (text.empty()) {
-        cout << "Empty string";
-        exit(0);
-    }
-    else {
         text += TERMINATION_SYMBOL;
         BuildSuffixTree();
-    }
 }
 
 void SuffixTree::BuildSuffixTree()
@@ -103,19 +97,19 @@ void SuffixTree::ExtendSuffixTree(int phase)
 }
 
 // запушить в вектор листья  которые находятся в поддереве с корнем node
-void SuffixTree::CountIndex(Node* node, vector<int>& vec)
+void SuffixTree::GetSuffixIndexs(Node* node, vector<int>& vec)
 {
     if (!node)
         return;
     for (auto it : node->children) 
-        CountIndex(it.second, vec);
+        GetSuffixIndexs(it.second, vec);
     if (node->suffix_index != -1) 
         vec.push_back(node->suffix_index);
 }
 
-void SuffixTree::SuffixOutput() {
+void SuffixTree::PrintSuffixs() {
      vector <int> VecSuffTree;
-     CountIndex(root, VecSuffTree);
+     GetSuffixIndexs(root, VecSuffTree);
     for (int i = 0; i < VecSuffTree.size(); i++) {
         cout << "\"";
         for (int j = 0; j < VecSuffTree[i]; j++) {
@@ -125,11 +119,10 @@ void SuffixTree::SuffixOutput() {
     }
 }
 
-bool SuffixTree::FindSub(string Pstr) {
+bool SuffixTree::Find(string Pstr) {
     if (Pstr.empty()) {
-        cout << "Empty Substring";
-        exit(0);
-    }
+        return true;
+    } 
     Node* current_node = root;
     string finded_str = "";
     int depth_edge = 0;

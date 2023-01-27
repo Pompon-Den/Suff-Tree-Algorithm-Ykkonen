@@ -1,6 +1,9 @@
 /*
 Этот заголовочный файл содержит библитотеку С++ с реализацией алгоритма Укконена
 
+    Подключение библиотеки:
+        #include "SuffixTree.h"
+
     Построение суффиксного дерево по строке:
         SuffixTree* название = new SuffixTree(название_строки);
 
@@ -15,13 +18,15 @@
 
 */
 
+#ifndef SUFFIX_TREE_H
+#define SUFFIX_TREE_H
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <map>
 
-#define TERMINATION_SYMBOL '$'
+#define TERMINATION_SYMBOL '$' // ЧТО ТО С НИМ СДЕЛАТЬ НУЖНО  НЕ ДОЛЛАР
 
 using namespace std;
 
@@ -53,15 +58,15 @@ private:
 class SuffixTree
 {
 public:
-    SuffixTree(string& text);             // конструктор по строке
+    SuffixTree(string& text);             // Конструктор по строке
     void BuildSuffixTree();               
     ~SuffixTree()                        
     {
-        DeleteSuffixTree(root);
+        DeleteSuffixTree(root);         // Деструктор
     }
  
-    bool FindSub(string Pstr);
-    void SuffixOutput();
+    bool Find(string Pstr);
+    void PrintSuffixs();
 
 private:
     void DeleteSuffixTree(Node* node) 
@@ -73,19 +78,20 @@ private:
         delete node;
     }              
 
-    void ExtendSuffixTree(int pos);
-    void CountIndex(Node* node, vector<int>& vec);
-    int EdgeLength(Node* node);
+    void ExtendSuffixTree(int pos);                     // Вставка символа
+    void GetSuffixIndexs(Node* node, vector<int>& vec); // Сбор индексов суффиксов в  вектор
+    int EdgeLength(Node* node);                         // Подсчет длинны ребра
 
 
-    Node* root = new Node(nullptr, -1, new int(-1));
-    Node* lastCreatedInternalNode = nullptr;         
+    Node* root = new Node(nullptr, -1, new int(-1));    // Корень
+    Node* lastCreatedInternalNode = nullptr;            // Последняя созданная внутренняя вершина
 
-    string text; 
+    string text;                                        // Строка по которой строиться дерево
 
-    Node* activeNode = nullptr;   // вершина для расширения из неё
-    int activeEdge = -1;          // индекс символа, который задает движение из текущей ноды
-    int activeLength = 0;         // на сколько символов ступаем в направлении activeEdge
-    int remainingSuffixCount = 0; // сколько суффиксов осталось создать
-    int leafEnd = -1;             // глобальная переменная, определяет содержимое листьев: её инкремент как бы приписывает новый символ к ним
+    Node* activeNode = nullptr;                         // Вершина для расширения из неё
+    int activeEdge = -1;                                // Индекс символа, который задает движение из текущей ноды
+    int activeLength = 0;                               // На сколько символов ступаем в направлении activeEdge
+    int remainingSuffixCount = 0;                       // сколько суффиксов осталось создать. по сути, сколько суффиксов на прошлом шаге мы не создали
+    int leafEnd = -1;                                   // глобальная переменная, определяет содержимое листьев: её инкремент как бы приписывает новый символ к ним
 };
+#endif
