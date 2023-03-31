@@ -100,6 +100,7 @@ void SuffixTree::GetSuffixIndexs(Node* node, vector<int>& vec)
         vec.push_back(node->suffix_index);
 }
 
+/* Вывод всех суффиксов в дереве*/
 void SuffixTree::PrintSuffixs() {
      vector <int> VecSuffTree;
      GetSuffixIndexs(root, VecSuffTree);
@@ -112,6 +113,7 @@ void SuffixTree::PrintSuffixs() {
     }
 }
 
+/* Поиск подстроки в дереве*/
 bool SuffixTree::Find(string Pstr) {
     if (Pstr.empty()) {
         return true;

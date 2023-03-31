@@ -1,0 +1,5 @@
+Test1: Time Build 24281423ms Time find tree 1417 ms Time find 419 ms 0 0 OK
+Test2: Time Build 6318658ms Time find tree 31 ms Time find 867 ms 0 0 OK
+Test3: Time Build 6155222ms Time find tree 23 ms Time find 428 ms 0 0 OK
+Test4: Time Build 6144996ms Time find tree 29 ms Time find 425 ms 0 0 OK
+Test5: Time Build 6229350ms Time find tree 23 ms Time find 441 ms 0 0 OK

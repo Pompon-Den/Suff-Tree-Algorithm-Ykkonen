@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 #include <map>
 
 
@@ -47,7 +48,8 @@ public:
     {
     }
 private:
-    map<char, Node*> children; 
+    
+    unordered_map<char, Node*> children; 
     Node* suffix_link;          
     int start;                  
     int* end;                   
